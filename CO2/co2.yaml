@@ -1,0 +1,134 @@
+esphome:
+  name: "co2"
+  friendly_name: CO2
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+
+
+#Fuentes a usar en la pantalla
+font:
+  #Tamaño pequeño para poner ppm
+  - file: 'arial.ttf'
+    id: font0
+    size: 10
+  
+  #Tamaño más grande para poner el valor
+  - file: 'arial.ttf'
+    id: font6
+    size: 58
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret co2_api_key
+
+ota:
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true #para que se conecte directamente a la wifi, sin hacer búsqueda, mejora el tiempo de arranque
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: !secret ap_ssid 
+    password:  !secret ap_password  
+
+captive_portal:
+
+
+i2c:
+  sda: 8
+  scl: 9
+  scan: True
+  frequency: 400kHz #para evitar errores de Component xxxxxx took a long time for an operation (x.xx s).
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    #reset_pin: D0
+    address: 0x3C
+    id: my_display
+    pages:
+      - id: page1
+        lambda: |-
+          it.print(126, 60, id(font0), TextAlign::BASELINE_RIGHT,"ppm");
+          it.printf(10, 60, id(font6), TextAlign::BASELINE_LEFT,"%.0f", id(mhz19_co2).state);
+          
+         
+#Conexión serie con el sensor de CO2        
+uart:
+  rx_pin: 20
+  tx_pin: 21
+  baud_rate: 9600
+
+
+sensor:
+  - platform: mhz19
+    id: my_mhz19_id
+    co2:
+      name: "MH-Z19 CO2 Value"
+      id:  mhz19_co2
+    temperature:
+      name: "MH-Z19 Temperature"
+      id:   mhz19_temperature
+    update_interval: 60s
+    automatic_baseline_calibration: false
+
+
+
+
+binary_sensor:
+  - platform: gpio
+    id: pir
+    pin: 0
+    name: "PIR Sensor"
+    device_class: motion
+    on_state:
+      if:
+        condition:
+           binary_sensor.is_on: pir
+        then:
+          lambda: id(my_display).turn_on();
+        else:
+          lambda: id(my_display).turn_off();
+
+      
+
+
+
+switch:
+  - platform: template
+    name: "MH-Z19 ABC"
+    optimistic: true
+    on_turn_on:
+      - mhz19.abc_enable: my_mhz19_id
+    on_turn_off:
+      - mhz19.abc_disable: my_mhz19_id
+  
+  - platform: restart
+    name: Restart   
+    
+  - platform: template
+    id: pantalla_on_off
+    name: "Pantalla On/Off"
+    optimistic: true
+    on_turn_on:
+      - lambda: id(my_display).turn_on();
+    on_turn_off:
+      - lambda: id(my_display).turn_off();
+
+
+web_server:
+  port: 80
+    
+
+
+
