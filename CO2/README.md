@@ -51,6 +51,7 @@ En su web hay mucha documentación, para el caso que nos ocupa:
 |GPIO9 | |  | SCL |
 |GPIO8 |   |  | SDA  |
 |5V | Vin | | |
+|GND | GND | | |
 |GPIO20 | TX | | |
 |GPIO21 | RX | | |
 
