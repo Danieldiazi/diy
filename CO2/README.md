@@ -25,7 +25,7 @@ A continuación puedes ver los componentes principales. He puesto el enlace dón
 
 ## Caja
   Puedes hacer tu una, con marquetería, con impresora 3D, o como tu imaginación y talento te permita.
-  En mi caso he optado por una caja de superficie para mecanismos eléctricos. No es la mejor opción, porque es mucho más grande de lo que necesito.
+  En mi caso he optado por una caja de superficie para mecanismos eléctricos. No es la mejor opción porque es mucho más grande de lo que necesito.
 
   * [Leroy Merlin](https://www.leroymerlin.es/productos/electricidad-y-domotica/cajas-y-conexiones-electricas/cajas-de-registro/caja-de-mecanismos-universal-85x85-mm-15918413.html)
 
