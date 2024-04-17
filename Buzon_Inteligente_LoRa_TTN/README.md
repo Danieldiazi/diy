@@ -118,4 +118,4 @@ mqtt:
 
 5. Ahora configura un panel con esta información, o crea las automatizaciones que consideres, por ejemplo para enviar un aviso cuando te llegue una entrega.
 # CODIGO FUENTE
-* TODO.
+* TODO. / PENDIENTE
