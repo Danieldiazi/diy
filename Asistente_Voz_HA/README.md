@@ -47,7 +47,7 @@ docker run --name=piper -d -p 10200:10200 -v /rhasspy/piper/data:/data rhasspy/w
 ## Whisper
 Se encarga de convertir la voz en texto, para que nos pueda escuchar e interpretar luego el texto generado.
 ```
-mkdir -p /rhasspy/whisper/data:
+mkdir -p /rhasspy/whisper/data
 docker run --name=whisper -d -p 10300:10300 -v /rhasspy/whisper/data:/data rhasspy/wyoming-whisper --model tiny-int8 --language es
 ```
 En este caso el modelo a cargar es importante de cara a mejorar la precisión y por tanto nuestra comprensión. Cuánto más grande sea el modelo, mejor nos "entenderá", pero también más recursos hardware (cpu y memoria) necesitará. Igual la versión small (small-int8) o medium (medium-int8) es mejor opción que "tiny-int8". Más info sobre esto en el [proyecto github de whisper](https://github.com/openai/whisper)
