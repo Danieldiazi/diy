@@ -25,7 +25,7 @@ En mi caso, no se conectaba a la wifi, así que:
 # INSTALACIÓN Y CONFIGURACIÓN DE COMPONENTES SOFTWARE NECESARIOS
 
 ## VERSIÓN ADDON
-En el caso de que tengas instalado HAOS/HASSIO vete a addons e instala:
+En el caso de que tengas instalado HA OS (Home Assistant Operating System) vete a addons e instala:
 * Piper
 * Whisper
 * openWakeWord
